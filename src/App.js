@@ -1,10 +1,19 @@
 import Header from './components/Header';
+import Main from './components/Main';
+import {Route, Routes} from 'react-router-dom';
 
 function App() {
   return (
-    <>
-      <Header/>
-    </>
+    <Routes>
+      <Route
+        path='*'
+        element={
+          <>
+            <Header />
+            <Main />
+          </>
+        }/>
+    </Routes>
   );
 }
 
