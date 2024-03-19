@@ -2,10 +2,10 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {getUrlToken} from '../../api/token';
 
 export const setToken = token => {
-  const oldToken = localStorage.getItem('Bearer');
+  const oldToken = localStorage.getItem('Token');
   if (oldToken === token) return;
 
-  localStorage.setItem('Bearer', token);
+  localStorage.setItem('Token', token);
 };
 
 export const fetchToken = createAsyncThunk(
@@ -34,7 +34,7 @@ export const fetchToken = createAsyncThunk(
 );
 
 const initialState = {
-  token: localStorage.getItem('Bearer') || null,
+  token: localStorage.getItem('Token'),
   loading: false,
   error: '',
 };
@@ -53,16 +53,16 @@ const tokenSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(fetchToken.pending, state => {
-        // state.loading = true;
+        state.loading = true;
         state.error = '';
       })
       .addCase(fetchToken.fulfilled, (state, action) => {
+        state.loading = false;
         state.token = action.payload;
-        // state.loading = false;
         state.error = '';
       })
       .addCase(fetchToken.rejected, (state, action) => {
-        // state.loading = false;
+        state.loading = false;
         state.token = '';
         state.error = action.error;
       });

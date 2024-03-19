@@ -3,8 +3,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {authLogout, fetchAuth} from '../store/auth/authSlice';
 
 export const useAuth = () => {
-  const auth = useSelector(state => state.auth.data);
   const token = useSelector(state => state.token.token);
+  const auth = useSelector(state => state.auth.data);
   // const loading = useSelector(state => state.auth.loading);
   const error = useSelector(state => state.auth.error);
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ export const useAuth = () => {
 
   const clearAuth = () => {
     dispatch(authLogout());
-    localStorage.removeItem('Bearer');
+    localStorage.removeItem('Token');
   };
 
   return [auth, clearAuth, error];

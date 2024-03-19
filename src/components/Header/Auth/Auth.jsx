@@ -7,15 +7,16 @@ import {useDispatch, useSelector} from 'react-redux';
 import {removeToken} from '../../../store/token/tokenSlice';
 import {useEffect, useState} from 'react';
 import {fetchToken} from '../../../store/token/tokenSlice';
+import {useNavigate} from 'react-router-dom';
 
 export const Auth = () => {
   const dispatch = useDispatch();
   const token = useSelector(state => state.token.token);
   const [auth, clearAuth] = useAuth();
   const [showBtn, setShowBtn] = useState(false);
+  const navigate = useNavigate();
 
   const getOut = () => {
-    console.log('click');
     if (!showBtn) {
       setShowBtn(true);
     } else {
@@ -27,6 +28,7 @@ export const Auth = () => {
     dispatch(removeToken());
     clearAuth();
     setShowBtn(false);
+    navigate('/');
   };
 
   useEffect(() => {
@@ -38,7 +40,7 @@ export const Auth = () => {
   return (<div className={style.container}>
     {
       auth.name ? (
-          <button className={style.btn}>
+          <div className={style.btn}>
             <img
               className={style.img}
               src={auth.profile_image.small}
@@ -55,7 +57,7 @@ export const Auth = () => {
                   Выйти
                 </button>
             )}
-          </button>
+          </div>
       ) : (
     <Text As='a' className={style.authLink} href={urlAuth}>
       <LoginIcon className={style.svg} />
