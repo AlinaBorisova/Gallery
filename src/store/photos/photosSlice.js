@@ -34,7 +34,7 @@ const initialState = {
   error: '',
   page: 1,
   params: '',
-  loadingPhoto: false,
+  loadingPhotos: false,
 };
 
 const photosSlice = createSlice({
@@ -51,19 +51,19 @@ const photosSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(photosRequestAsync.pending, state => {
-        state.loadingPhoto = true;
+        state.loadingPhotos = true;
         state.status = 'loading';
         state.error = '';
       })
       .addCase(photosRequestAsync.fulfilled, (state, action) => {
         state.photos = [...state.photos, ...action.payload.photos];
-        state.loadingPhoto = false;
+        state.loadingPhotos = false;
         state.status = 'loaded';
         state.page = action.payload.page;
         state.error = '';
       })
       .addCase(photosRequestAsync.rejected, (state, action) => {
-        state.loadingPhoto = false;
+        state.loadingPhotos = false;
         state.status = 'error';
         state.error = action.error;
       });
