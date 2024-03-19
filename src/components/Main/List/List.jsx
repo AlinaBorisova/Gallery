@@ -10,9 +10,10 @@ import {
 import Preloader from '../../../UI/Preloader';
 import Masonry from 'react-masonry-css';
 
+// Настроить адаптив, перекрытие стилей
+
 export const List = () => {
   const photos = useSelector(state => state.photos.photos);
-  console.log('photos', photos);
   const loadingPhoto = useSelector(state => state.photos.loadingPhoto);
   const dispatch = useDispatch();
   const endList = useRef(null);
@@ -24,16 +25,14 @@ export const List = () => {
   }, [dispatch, params]);
 
   useEffect(() => {
-    if (params.pathname === '/' && !loadingPhoto) {
-      console.log('pathname === /');
+    if (!loadingPhoto) {
       const observer = new IntersectionObserver((entries, observer) => {
         if (entries[0].isIntersecting) {
           dispatch(photosRequestAsync());
         }
       }, {
-        rootMargin: '150px',
+        rootMargin: '250px',
       });
-      console.log(endList.current);
       if (endList.current && !loadingPhoto) {
         observer.observe(endList.current);
       }
@@ -47,8 +46,8 @@ export const List = () => {
   }, [dispatch, endList.current, params.pathname, loadingPhoto]);
 
   const breakpointColumnsObj = {
-    default: 5,
-    1100: 3,
+    default: 3,
+    1100: 2,
     700: 2,
     500: 1
   };

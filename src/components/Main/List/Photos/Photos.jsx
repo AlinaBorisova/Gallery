@@ -19,15 +19,16 @@ export const Photos = ({photo}) => {
       <div className={style.photoWrapper} id={id}>
         <Thumbnail
           className={style.image}
-          src={urls.thumb}
+          src={urls.small}
           alt={altDescription}
-
         />
-        <div className={style.description}>
-          <Author photo={photo}/> {/* Не работает ссылка на профиль*/}
-          <Date date={date} />
+        <div className={style.descriptionWrapper}>
+          <div className={style.description}>
+            <Author photo={photo}/> {/* Не работает ссылка на профиль*/}
+            <Date date={date} />
+          </div>
+          <Like likes={likes}/>
         </div>
-        <Like likes={likes}/>
       </div>
     </>
 

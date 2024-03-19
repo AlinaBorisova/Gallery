@@ -1,3 +1,28 @@
 .photoWrapper {
     position: relative;
 }
+
+.descriptionWrapper {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 90px;
+    left: 0;
+    padding: 0 20px;
+    z-index: 1;
+    color: var(--white);
+    background-color: var(--darkBlue);
+    bottom: 93px;
+    opacity: 0;
+    transition: all 1.1s ease;
+}
+
+.descriptionWrapper:hover {
+    opacity: 0.6;
+}
+
+.description {
+    z-index: 100;
+    opacity: 1 !important;
+    width: 90%;
+}
