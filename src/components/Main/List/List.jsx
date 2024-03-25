@@ -14,7 +14,7 @@ import Masonry from 'react-masonry-css';
 
 export const List = () => {
   const photos = useSelector(state => state.photos.photos);
-  const loadingPhoto = useSelector(state => state.photos.loadingPhoto);
+  const loadingPhotos = useSelector(state => state.photos.loadingPhotos);
   const dispatch = useDispatch();
   const endList = useRef(null);
   const params = useLocation();
@@ -25,7 +25,7 @@ export const List = () => {
   }, [dispatch, params]);
 
   useEffect(() => {
-    if (!loadingPhoto) {
+    if (!loadingPhotos) {
       const observer = new IntersectionObserver((entries, observer) => {
         if (entries[0].isIntersecting) {
           dispatch(photosRequestAsync());
@@ -33,7 +33,7 @@ export const List = () => {
       }, {
         rootMargin: '250px',
       });
-      if (endList.current && !loadingPhoto) {
+      if (endList.current && !loadingPhotos) {
         observer.observe(endList.current);
       }
 
@@ -43,7 +43,7 @@ export const List = () => {
         }
       };
     }
-  }, [dispatch, endList.current, params.pathname, loadingPhoto]);
+  }, [dispatch, endList.current, params.pathname, loadingPhotos]);
 
   const breakpointColumnsObj = {
     default: 3,
@@ -65,7 +65,7 @@ export const List = () => {
                  <Photos photo={photo} />
                </li>
              ))}
-             {loadingPhoto && <Preloader />}
+             {loadingPhotos && <Preloader />}
              <li ref={endList} className={style.end} />
            </Masonry>
         }
