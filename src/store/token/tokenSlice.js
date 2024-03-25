@@ -27,7 +27,7 @@ export const fetchToken = createAsyncThunk(
       const data = await response.json();
       token = data.access_token;
       setToken(token);
-      return token;
+      if (token) return token;
     }
     return token;
   }
