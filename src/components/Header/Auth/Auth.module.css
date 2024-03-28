@@ -1,8 +1,9 @@
 .container {
     position: relative;
     display: block;
-    text-align: center;
-    height: 104px;
+    max-height: 75px;
+    max-width: 75px;
+    align-self: center;
 }
 
 .btn {
@@ -60,6 +61,10 @@
 
 
 @media (max-width: 768px) {
+    /*.container {*/
+    /*    max-width: 50px;*/
+    /*    max-height: 50px;*/
+    /*}*/
     .btn {
         border-radius: 15px;
         width: 50px;
@@ -71,7 +76,6 @@
         margin-top: 5px;
         color: white;
         font-size: 12px;
-        /*height: 19px;*/
         justify-self: end;
     }
 }
