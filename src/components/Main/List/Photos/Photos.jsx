@@ -18,11 +18,16 @@ export const Photos = ({photo}) => {
     liked_by_user: liked,
   } = photo;
 
+  const handleMouseover = () => {
+    console.log(liked);
+  };
+
   return (
     <>
       <div
         className={style.photoWrapper}
         id={id}
+        onMouseOver={handleMouseover}
       >
         <Link to={`photo/${photo.id}`}>
           <Thumbnail
@@ -36,7 +41,7 @@ export const Photos = ({photo}) => {
             <Author photo={photo}/> {/* Не работает ссылка на профиль*/}
             <Date date={date} />
           </div>
-          <Like likes={likes} liked={liked} id={id}/>
+          <Like likes={likes} liked={liked} id={id} />
         </div>
       </div>
     </>

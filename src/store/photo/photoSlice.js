@@ -8,15 +8,15 @@ export const photoRequestAsync = createAsyncThunk(
 
     const response = await fetch(`
       ${URL_API}/photos/${id}`,
-    token ? {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    } : {
-      headers: {
-        Authorization: `Client-ID ${ACCESS_KEY}`,
-      },
-    });
+      token ? {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      } : {
+        headers: {
+          Authorization: `Client-ID ${ACCESS_KEY}`,
+        },
+      });
 
     if (!response.ok) {
       throw new Error('Photo is not find');
@@ -35,7 +35,7 @@ const initialState = {
 };
 
 const photoSlice = createSlice({
-  name: 'photos',
+  name: 'photo',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
