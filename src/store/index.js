@@ -1,5 +1,4 @@
 import {configureStore} from '@reduxjs/toolkit';
-// import {composeWithDevTools} from '@redux-devtools/extension';
 import tokenReducer from './token/tokenSlice';
 import authReducer from './auth/authSlice';
 import photosReducer from './photos/photosSlice';
@@ -13,9 +12,7 @@ const store = configureStore({
     photos: photosReducer,
     photo: photoReducer,
     like: likeReducer,
-    // searchReducer,
   }
 });
-// }, composeWithDevTools());
 
 export default store;

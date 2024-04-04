@@ -17,6 +17,7 @@ export const List = () => {
   const photos = useSelector(state => state.photos.photos);
   const loadingPhotos = useSelector(state => state.photos.loadingPhotos);
   const loadingSearch = useSelector(state => state.photos.loadingSearch);
+  const error = useSelector(state => state.photos.error);
   const [searchParam] = useSearchParams();
   const search = searchParam.get('search');
   const dispatch = useDispatch();
@@ -91,10 +92,12 @@ export const List = () => {
                </li>
              ))}
              {(loadingPhotos || loadingSearch) && <Preloader />}
+             {/* {error && <h2>403</h2>}*/}
              <li ref={endList} className={style.end} />
            </Masonry>
         }
       </ul>
+      {error && <h2>{error}</h2>}
       <Outlet />
     </>
   );

@@ -24,7 +24,7 @@ export const photosRequestAsync = createAsyncThunk(
       if (!response.ok) {
         return rejectWithValue({
           status: response.status,
-          error: 'Не удалось загрузить фотографии.',
+          error: 'Не удалось загрузить фотографии',
         });
       }
       page++;
@@ -59,7 +59,7 @@ export const searchRequestAsync = createAsyncThunk(
       if (!response.ok) {
         return rejectWithValue({
           status: response.status,
-          error: 'Не удалось загрузить фотографии.',
+          error: 'Не удалось загрузить фотографии',
         });
       }
       page++;

@@ -3,46 +3,58 @@ import {URL_API} from '../../api/const';
 
 export const likePostAsync = createAsyncThunk(
   'post/postLike',
-  async (id, {getState}) => {
+  async (id, {getState, rejectWithValue}) => {
     const token = getState().token.token;
 
-    const response = await fetch(` ${URL_API}/photos/${id}/like`,
-      token && {
+    try {
+      const response = await fetch(`${URL_API}/photos/${id}/like`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-    if (!response.ok) {
-      throw new Error('Не удалось поставить лайк');
-    }
+      if (!response.ok) {
+        return rejectWithValue({
+          status: response.status,
+          error: 'Не удалось поставить like фотографии.',
+        });
+      }
 
-    const data = await response.json();
-    if (data) return data;
-  }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      return error;
+    }
+  },
 );
 
 export const likeDeleteAsync = createAsyncThunk(
   'delete/deleteLike',
-  async (id, {getState}) => {
+  async (id, {getState, rejectWithValue}) => {
     const token = getState().token.token;
 
-    const response = await fetch(` ${URL_API}/photos/${id}/like`,
-      token && {
+    try {
+      const response = await fetch(`${URL_API}/photos/${id}/like`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-    if (!response.ok) {
-      throw new Error('Не удалось удалить лайк');
-    }
+      if (!response.ok) {
+        return rejectWithValue({
+          status: response.status,
+          error: 'Не удалось удалить like с фотографии.',
+        });
+      }
 
-    const data = await response.json();
-    if (data) return data;
-  }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      return error;
+    }
+  },
 );
 
 const initialState = {
@@ -90,8 +102,3 @@ const likeSlice = createSlice({
 });
 
 export default likeSlice.reducer;
-export const {
-  setLike,
-  likedPhoto,
-  deleteLike
-} = likeSlice.actions;
