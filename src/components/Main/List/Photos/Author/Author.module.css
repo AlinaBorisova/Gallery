@@ -1,0 +1,25 @@
+.wrapper a {
+    display: inline-block;
+    color: var(--white);
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    opacity: 1 !important;
+    z-index: 1000;
+}
+.wrapper a:after {
+    background-color: var(--white);
+    display: block;
+    content: "";
+    height: 2px;
+    width: 0;
+    position: absolute;
+    bottom: 10px;
+    -webkit-transition: width .3s ease-in-out;
+    transition: width .3s ease-in-out;
+}
+.wrapper a:hover:after,
+.wrapper a:focus:after {
+    width: 100%;
+}

@@ -1,0 +1,32 @@
+.btnWrapper {
+    height: 37px;
+    width: 40px;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 40%;
+    border: none;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0,0,0,0);
+}
+
+.btnWrapper span {
+    position: absolute;
+    font-size: 12px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 11px;
+    text-align: center;
+    color: var(--white);
+}
+
+.likeActive span{
+    color: #F81604;
+}
+
+
+
+
