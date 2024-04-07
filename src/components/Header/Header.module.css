@@ -3,9 +3,29 @@
     background-color: var(--blue);
     height: max-content;
     margin-bottom: 35px;
+    width: 100%;
 }
 
 .header__container {
     display: flex;
     justify-content: space-between;
+    gap: 20px;
 }
+
+/*@media (min-width: 620px) {*/
+/*    .header__container {*/
+/*        gap: 20px;*/
+/*    }*/
+/*}*/
+
+/*@media (min-width: 880px) {*/
+/*    .header__container {*/
+/*        gap: 20px;*/
+/*    }*/
+/*}*/
+
+/*@media (min-width: 1080px) {*/
+    /*.header__container {*/
+    /*    gap: 20px;*/
+    /*}*/
+/*}*/
