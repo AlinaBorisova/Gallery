@@ -15,7 +15,6 @@
     height: 2px;
     width: 0;
     position: absolute;
-    bottom: 10px;
     -webkit-transition: width .3s ease-in-out;
     transition: width .3s ease-in-out;
 }
