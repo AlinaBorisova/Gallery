@@ -1,10 +1,8 @@
 import style from './Search.module.css';
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-// import {useDispatch} from 'react-redux';
 
 export const Search = () => {
-  // const dispatch = useDispatch();
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
   const handlerSubmit = (e) => {

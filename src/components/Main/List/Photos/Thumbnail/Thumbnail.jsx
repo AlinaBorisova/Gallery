@@ -2,8 +2,6 @@
 import PropTypes from 'prop-types';
 
 export const Thumbnail = ({src, alt, width, height, className}) => (
-  // <picture>
-  //   <source srcSet={src}/>
   <img
     className={className}
     src={src}
@@ -11,7 +9,6 @@ export const Thumbnail = ({src, alt, width, height, className}) => (
     width={width}
     height={height}
   />
-  // </picture>
 );
 
 Thumbnail.propTypes = {

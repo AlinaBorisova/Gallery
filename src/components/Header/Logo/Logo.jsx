@@ -1,15 +1,20 @@
 import style from './Logo.module.css';
 import logo from './img/logo.svg';
-import {Link} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
-export const Logo = () => (
-  <div className={style.link}>
-    <Link to={`/`}>
+export const Logo = () => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate('/');
+  };
+  return (
+    <div className={style.container}>
       <img
         className={style.logo}
         src={logo}
         alt="Logo Gallery"
+        onClick={handleClick}
       />
-    </Link>
-  </div>
-);
+    </div>
+  );
+};
