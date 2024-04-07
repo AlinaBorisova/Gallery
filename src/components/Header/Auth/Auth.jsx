@@ -37,32 +37,33 @@ export const Auth = () => {
     }
   }, [dispatch, token]);
 
-  return (<div className={style.container}>
-    {
+  return (
+    <div className={style.container}>
+      {
       auth.name ? (
-          <div className={style.btn}>
-            <img
-              className={style.img}
-              src={auth.profile_image.small}
-              title={auth.username}
-              alt={`Аватар ${auth.name}`}
-              onClick={getOut}
-            />
-            {!showBtn ? (
-                <span className={style.userName}>
-                  {auth.username}
-                </span>
+        <div className={style.btn}>
+          <img
+            className={style.img}
+            src={auth.profile_image.small}
+            title={auth.username}
+            alt={`Аватар ${auth.name}`}
+            onClick={getOut}
+          />
+          {!showBtn ? (
+              <span className={style.userName}>
+                {auth.username}
+              </span>
             ) : (
-                <button className={style.logout} onClick={logOut}>
-                  Выйти
-                </button>
+              <button className={style.logout} onClick={logOut}>
+                Выйти
+              </button>
             )}
-          </div>
+        </div>
       ) : (
     <Text As='a' className={style.authLink} href={urlAuth}>
       <LoginIcon className={style.svg} />
     </Text>
       )}
-  </div>
+    </div>
   );
 };
