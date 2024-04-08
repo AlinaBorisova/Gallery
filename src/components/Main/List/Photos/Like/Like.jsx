@@ -9,14 +9,14 @@ import {
   likeDeleteAsync,
   likePostAsync,
 } from '../../../../../store/like/likeSlice';
+import Modal from '../../../../Modal';
 
 // Не обновляется значение на странице
 
 export const Like = ({likes, liked, id}) => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token.token);
-  // const {photo} = useSelector(state => state.photo);
-
+  const [showModal, setShowModal] = useState(false);
   const [likeCount, setLikeCount] = useState(likes);
   const [isLikedByUser, setIsLikedByUser] = useState(liked);
   const [activeBtn, setActiveBtn] = useState(liked);
@@ -27,7 +27,7 @@ export const Like = ({likes, liked, id}) => {
 
   const handleLikeClick = () => {
     if (!token) {
-      alert('Вы не авторизованы');
+      setShowModal(true);
     } else {
       if (isLikedByUser) {
         setLikeCount(likeCount - 1);
@@ -64,6 +64,7 @@ export const Like = ({likes, liked, id}) => {
         <LikeIcon />
         <span>{likeCount}</span>
       </button>
+      {showModal && <Modal />}
     </Layout>
   );
 };
