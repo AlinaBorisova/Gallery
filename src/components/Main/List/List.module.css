@@ -28,3 +28,18 @@
 .myMasonryGridColumn > li { /* change div to reference your elements you put in <Masonry> */
     margin-bottom: 20px;
 }
+
+.error {
+    width: 100%;
+    padding-top: 100px;
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .error {
+        font-size: 30px;
+    }
+}
