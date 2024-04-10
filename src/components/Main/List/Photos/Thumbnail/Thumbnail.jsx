@@ -1,4 +1,3 @@
-// import style from './Thumbnail.module.css';
 import PropTypes from 'prop-types';
 
 export const Thumbnail = ({src, alt, width, height, className}) => (

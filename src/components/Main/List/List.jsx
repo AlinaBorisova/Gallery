@@ -4,33 +4,37 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useEffect, useRef} from 'react';
 import {Outlet, useLocation, useSearchParams} from 'react-router-dom';
 import {
-  changePage,
+  changePage, favoriteRequestAsync,
   photosRequestAsync,
   searchRequestAsync,
 } from '../../../store/photos/photosSlice';
 import Preloader from '../../../UI/Preloader';
 import Masonry from 'react-masonry-css';
-
-// Настроить адаптив, перекрытие стилей
+import {useAuth} from '../../../hooks/useAuth';
+import ButtonUp from '../../ButtonUp';
 
 export const List = () => {
-  const photos = useSelector(state => state.photos.photos);
-  const loadingPhotos = useSelector(state => state.photos.loadingPhotos);
-  const loadingSearch = useSelector(state => state.photos.loadingSearch);
-  const error = useSelector(state => state.photos.error);
+  const {
+    photos,
+    loadingPhotos,
+    loadingSearch,
+    loadingFavorite,
+    error,
+  } = useSelector(state => state.photos);
+  const [auth] = useAuth();
   const [searchParam] = useSearchParams();
   const search = searchParam.get('search');
   const dispatch = useDispatch();
   const endList = useRef(null);
   const params = useLocation();
 
-
   useEffect(() => {
     dispatch(changePage(params));
   }, [dispatch, params]);
 
   useEffect(() => {
-    if (!loadingPhotos) {
+    if ((params.pathname === '/' || params.pathname === '/auth') &&
+      !loadingPhotos) {
       const observer = new IntersectionObserver((entries, observer) => {
         if (entries[0].isIntersecting) {
           dispatch(photosRequestAsync());
@@ -71,6 +75,27 @@ export const List = () => {
     }
   }, [dispatch, endList.current, params.pathname, loadingSearch]);
 
+  useEffect(() => {
+    if (params.pathname === '/favorite' && !loadingFavorite) {
+      const observer = new IntersectionObserver((entries, observer) => {
+        if (entries[0].isIntersecting) {
+          dispatch(favoriteRequestAsync(auth.username));
+        }
+      }, {
+        rootMargin: '250px',
+      });
+      if (endList.current && !loadingFavorite) {
+        observer.observe(endList.current);
+      }
+
+      return () => {
+        if (endList.current) {
+          observer.unobserve(endList.current);
+        }
+      };
+    }
+  }, [dispatch, auth, endList.current, params.pathname, loadingFavorite]);
+
   const breakpointColumnsObj = {
     default: 3,
     1100: 2,
@@ -82,23 +107,25 @@ export const List = () => {
     <>
       <ul className={style.list}>
         {photos &&
-           <Masonry
-             breakpointCols={breakpointColumnsObj}
-             className={style.myMasonryGrid}
-             columnClassName={style.myMasonryGridColumn}>
-             {photos.map((photo) => (
-               <li key={photo.id} className={style.listItem}>
-                 <Photos photo={photo} />
-               </li>
-             ))}
-             {(loadingPhotos || loadingSearch) && <Preloader />}
-             {/* {error && <h2>403</h2>}*/}
-             <li ref={endList} className={style.end} />
-           </Masonry>
+         <Masonry
+           breakpointCols={breakpointColumnsObj}
+           className={style.myMasonryGrid}
+           columnClassName={style.myMasonryGridColumn}>
+           {photos.map((photo) => (
+             <li key={photo.id} className={style.listItem}>
+               <Photos photo={photo} />
+             </li>
+           ))}
+           {(loadingPhotos ||
+            loadingSearch ||
+            loadingFavorite) && <Preloader />}
+           <li ref={endList} className={style.end} />
+         </Masonry>
         }
       </ul>
-      {error && <h2>{error}</h2>}
+      {error && <h2 className={style.error}>{error}</h2>}
       <Outlet />
+      <ButtonUp />
     </>
   );
 };

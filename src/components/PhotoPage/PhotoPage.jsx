@@ -9,17 +9,15 @@ import Author from '../Main/List/Photos/Author';
 import Date from '../Main/List/Photos/Date';
 import {Like} from '../Main/List/Photos/Like/Like';
 
-// Подвинуть лайк
-
 export const PhotoPage = () => {
   const {id} = useParams();
   const dispatch = useDispatch();
-  const {photo, loadingPhoto} = useSelector(state => state.photo);
-  console.log('photo', photo.liked_by_user);
+  const photo = useSelector(state => state.photo.photo);
+  const loadingPhoto = useSelector(state => state.photo.loadingPhoto);
 
   useEffect(() => {
     dispatch(photoRequestAsync(id));
-  }, [dispatch, id]);
+  }, [dispatch, id, photo.liked_by_user]);
 
   return (
     <div>

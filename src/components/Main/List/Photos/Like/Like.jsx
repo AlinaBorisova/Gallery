@@ -11,8 +11,6 @@ import {
 } from '../../../../../store/like/likeSlice';
 import Modal from '../../../../Modal';
 
-// Не обновляется значение на странице
-
 export const Like = ({likes, liked, id}) => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token.token);
@@ -20,10 +18,6 @@ export const Like = ({likes, liked, id}) => {
   const [likeCount, setLikeCount] = useState(likes);
   const [isLikedByUser, setIsLikedByUser] = useState(liked);
   const [activeBtn, setActiveBtn] = useState(liked);
-  // console.log('activeBtn', activeBtn);
-  // console.log('isLikedByUser', isLikedByUser);
-  // console.log('liked', photo.liked_by_user);
-  // console.log('likes', likes);
 
   const handleLikeClick = () => {
     if (!token) {
@@ -44,17 +38,6 @@ export const Like = ({likes, liked, id}) => {
     }
   };
 
-  // useEffect(() => {
-  //   if (!activeBtn) return;
-  //
-  //   if (isLikedByUser) {
-  //     dispatch(likePostAsync(id));
-  //   }
-  //   if (!isLikedByUser) {
-  //     dispatch(likeDeleteAsync(id));
-  //   }
-  // }, [isLikedByUser]);
-
   return (
     <Layout>
       <button
@@ -64,7 +47,7 @@ export const Like = ({likes, liked, id}) => {
         <LikeIcon />
         <span>{likeCount}</span>
       </button>
-      {showModal && <Modal closeModal={() => setShowModal(false)}/>}
+      {showModal && <Modal closeModal={() => setShowModal(false)} />}
     </Layout>
   );
 };

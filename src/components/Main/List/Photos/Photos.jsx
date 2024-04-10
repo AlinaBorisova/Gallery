@@ -6,8 +6,6 @@ import Date from './Date';
 import {Like} from './Like/Like';
 import {Link} from 'react-router-dom';
 
-// При наведении в любое место показывать description
-
 export const Photos = ({photo}) => {
   const {
     id,
@@ -33,7 +31,7 @@ export const Photos = ({photo}) => {
         </Link>
         <div className={style.descriptionWrapper}>
           <div className={style.description}>
-            <Author photo={photo}/> {/* Не работает ссылка на профиль*/}
+            <Author photo={photo}/>
             <Date date={date} />
           </div>
           <Like likes={likes} liked={liked} id={id} />
