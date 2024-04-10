@@ -64,7 +64,7 @@ export const Like = ({likes, liked, id}) => {
         <LikeIcon />
         <span>{likeCount}</span>
       </button>
-      {showModal && <Modal />}
+      {showModal && <Modal closeModal={() => setShowModal(false)}/>}
     </Layout>
   );
 };

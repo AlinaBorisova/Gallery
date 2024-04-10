@@ -1,45 +1,20 @@
 import style from './Modal.module.css';
 import ReactDOM from 'react-dom';
 import {ReactComponent as ErrorIcon} from './img/error.svg';
-import {ReactComponent as CloseIcon} from './img/close.svg';
-import {useEffect, useRef} from 'react';
-import {useLocation, useNavigate} from 'react-router-dom';
+import {useEffect} from 'react';
 
-export const Modal = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const overlayRef = useRef(null);
-
-  const handleClick = e => {
-    const target = e.target;
-    if (target === overlayRef.current) {
-      navigate(location.pathname);
-    }
-  };
-
-  const handleEsc = ({key}) => {
-    if (key === 'Escape') navigate(location.pathname);
-  };
-
+export const Modal = ({closeModal}) => {
   useEffect(() => {
-    document.addEventListener('click', handleClick);
-    document.addEventListener('keydown', handleEsc);
-    return () => {
-      document.removeEventListener('click', handleClick);
-      document.addEventListener('keydown', handleEsc);
-    };
+    setTimeout(() => {
+      closeModal();
+    }, 2500);
   }, []);
 
   return ReactDOM.createPortal(
-    <div className={style.overlay} ref={overlayRef}>
+    <div className={style.overlay}>
       <div className={style.modal}>
         <h2 className={style.title}>Вы не авторизованы</h2>
         <ErrorIcon/>
-        <button className={style.close}
-          onClick={() => navigate(location.pathname)}
-        >
-          <CloseIcon/>
-        </button>
       </div>
     </div>,
     document.body,
