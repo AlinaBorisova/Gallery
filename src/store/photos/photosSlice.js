@@ -7,6 +7,7 @@ export const photosRequestAsync = createAsyncThunk(
     try {
       const token = getState().token.token;
       let page = getState().photos.page;
+
       const response = await fetch(
         `${URL_API}/photos?per_page=30&${page && `page=${page}`}`,
         token ?
@@ -42,6 +43,7 @@ export const searchRequestAsync = createAsyncThunk(
     try {
       const token = getState().token.token;
       let page = getState().photos.page;
+
       const response = await fetch(
         `${URL_API}/search/photos?per_page=30&page=${page}&query=${search}`,
         token ?
@@ -71,6 +73,39 @@ export const searchRequestAsync = createAsyncThunk(
     }
   });
 
+export const favoriteRequestAsync = createAsyncThunk(
+  'fetch/fetchFavoritePhotos',
+  async (user, {getState, rejectWithValue}) => {
+    try {
+      const token = getState().token.token;
+      let page = getState().photos.page;
+
+      const response = await fetch(
+        // eslint-disable-next-line max-len
+        `${URL_API}/users/${user}/likes?client-id=${ACCESS_KEY}&per_page=30&${page && `page=${page}`}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        }
+      );
+
+      if (!response.ok) {
+        return rejectWithValue({
+          status: response.status,
+          error: 'Не удалось загрузить фотографии',
+        });
+      }
+      page++;
+
+      const photos = await response.json();
+      console.log('favoritePhotos', {photos, page});
+      return {photos, page};
+    } catch (error) {
+      return error;
+    }
+  });
+
 const initialState = {
   photos: [],
   status: '',
@@ -79,6 +114,7 @@ const initialState = {
   params: '',
   loadingPhotos: false,
   loadingSearch: false,
+  loadingFavorite: false,
   search: '',
   pageSearch: 1,
 };
@@ -137,10 +173,30 @@ const photosSlice = createSlice({
         state.loadingSearch = false;
         state.error = action.payload.error;
         state.status = action.payload.status;
+      })
+      .addCase(favoriteRequestAsync.pending, (state) => {
+        state.loadingFavorite = true;
+        state.error = null;
+        state.status = '';
+      })
+      .addCase(favoriteRequestAsync.fulfilled, (state, action) => {
+        if (state.photos) {
+          state.photos = [...state.photos, ...action.payload.photos];
+        } else {
+          state.photos = action.payload;
+        }
+        state.loadingFavorite = false;
+        state.error = null;
+        state.page = action.payload.page;
+        state.status = '';
+      })
+      .addCase(favoriteRequestAsync.rejected, (state, action) => {
+        state.loadingFavorite = false;
+        state.error = action.payload.error;
+        state.status = action.payload.status;
       });
   },
 });
-
 
 export const {changePage} = photosSlice.actions;
 export default photosSlice.reducer;
