@@ -7,7 +7,6 @@ export const Search = () => {
   const navigate = useNavigate();
   const handlerSubmit = (e) => {
     e.preventDefault();
-    console.log(search);
     navigate(`search?search=${search}`);
     setSearch('');
   };

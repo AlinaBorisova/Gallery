@@ -11,6 +11,7 @@ export const Main = () => (
       <Routes>
         <Route path='/auth' element={<List />} />
         <Route path='/' element={<List />} />
+        <Route path='/search' element={<List />} />
         <Route path='/photo/:id' element={<PhotoPage />} />
         <Route path='/favorite' element={<List />} />
         <Route path='*' element={<NotFound />} />
